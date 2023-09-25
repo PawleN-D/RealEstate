@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from  'react-router-dom'
 import './homepage.css';
 import Header from './header';
 import FeaturedHouse from './featuredHouse';
-
-
-
+import SearchResults from '../search-results';
+import HouseFilter from './houseFilter';
+import HouseFromQuery from '../House/HouseFromQuery';
 
 function App() {
 
@@ -31,13 +31,20 @@ function App() {
     <Router>
       <div className="container">
         <Header subtitle='Providing houses all over the world!' />
+        <HouseFilter allHouses={allHouses} />
+        <Switch>
+          <Route path='/searchresults/:country'>
+            <SearchResults allHouses={allHouses} />
+          </Route>
+          <Route path='/house/:id'>
+            <HouseFromQuery allHouses={allHouses} />
+          </Route>
+          <Route path='/'>
+            <FeaturedHouse house={featuredHouse} />
+          </Route>
+        </Switch>
       </div>
 
-      <Switch>
-        <Route path='/'>
-          <FeaturedHouse house={featuredHouse} />
-        </Route>
-      </Switch>
     </Router>
   );
 }
